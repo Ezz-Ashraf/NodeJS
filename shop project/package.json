@@ -1,0 +1,23 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "this is my shop",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.0.2",
+    "mysql2": "^2.3.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "ezz ashraf",
+  "license": "ISC"
+}

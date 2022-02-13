@@ -1,2 +1,0 @@
-# NodeJS
-My NodeJS projects

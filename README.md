@@ -2,9 +2,10 @@
 ## To run project type npm start if there are missing packages type npm install or install them manually:-
 this i my final website project using mongoose package and ejs for rendring after using (mysql2,sequelize ,mongodb) and with added properties of **sessions and cookies , authentication and secured routes**
 ## After running the project:-
+### The website is at localhost:3000
 ### Sign up then you can add products which their data + the user's data are both stored in mongoDB so adjust the url at the app.js file line 10 
 ### Then log in to start your session
-### you can logout to destroy your session
+### You can logout to destroy your session
 
 ## Available features
 ### 1 -add and remove products

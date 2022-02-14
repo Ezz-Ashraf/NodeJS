@@ -4,6 +4,7 @@ this i my mysql shop version using mysql2 package using mysql DB with missing pr
 
 **I used EJS as template engine but after using pugjs and handlebars as you will notice from the commented code**
 ### The website is at localhost:3000
+### Adjust database settings in the database file in util folder
 
 ## Available features
 ### 1 -add and remove products

@@ -1,6 +1,6 @@
 # SEQUELIZE shop website project
 ## To run project type npm start if there are missing packages type npm install or install them manually:-
-this i my mysql shop version using sequelize package using mysql DB with missing properties like ** sessions and cookies , authentication and secured routes**
+this is my mysql shop version using sequelize package using mysql DB with missing properties like ** sessions and cookies , authentication and secured routes**
 
 **I used EJS as template engine **
 ### The website is at localhost:3000

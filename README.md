@@ -1,6 +1,6 @@
 # NoSQL shop website project
 ## To run project type npm start if there are missing packages type npm install or install them manually:-
-this i my nosql shop version using mongodb package using MongoDB with missing properties like ** sessions and cookies , authentication and secured routes**
+this is my nosql shop version using mongodb package using MongoDB with missing properties like ** sessions and cookies , authentication and secured routes**
 
 **I used EJS as template engine **
 ### The website is at localhost:3000

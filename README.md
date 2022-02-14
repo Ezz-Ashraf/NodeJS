@@ -6,6 +6,7 @@
 #### 2-social network (which is frontend)
 ### -Run both projects using npm start
 ### -Type npm install in command prompt if it doesn't run(both)
+### -If an error occured when the page is loaded just ignore it 
 ### -The frontend project is just a ReactJS template I use (it wasn't coded by me) but I adjusted some URLs and JSON objects
 ### -I used Nodemon package for live reloading so npm start typically matches nodemon app.js in the RESTapi project
 ### -I used mongoose package in order to store requests in mongoDB(Kindly attach your mongoDB database link instead of mine at line 7 in Restapi/app.js) 

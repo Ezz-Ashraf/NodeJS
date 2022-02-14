@@ -1,6 +1,6 @@
 # MYSQL shop website project
 ## To run project type npm start if there are missing packages type npm install or install them manually:-
-this i my mysql shop version using mysql2 package using mysql DB with missing properties like **order page, sessions and cookies , authentication and secured routes**
+this is my mysql shop version using mysql2 package using mysql DB with missing properties like **order page, sessions and cookies , authentication and secured routes**
 
 **I used EJS as template engine but after using pugjs and handlebars as you will notice from the commented code**
 ### The website is at localhost:3000

@@ -12,6 +12,8 @@ this i my nosql shop version using mongodb package using MongoDB with missing pr
 ### 2-add and remove objects to and from cart
 ### 3-show previous orders 
 
+## The SQL commands file is for mysql so ignore it
+
 # Used packages:
  ##   "body-parser": "^1.19.0",
  ##   "ejs": "^3.1.6",

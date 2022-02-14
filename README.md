@@ -12,6 +12,9 @@ this i my final website project using mongoose package and ejs for rendring afte
 ### 2-add and remove objects to and from cart
 ### 3-preview previous orders
 ### 4-It was planned to add to the checkout page payment methods using stripe but I preferred to separate it to another project
+
+## The SQL commands file is for mysql so ignore it
+
 # Used packages:
 ##    "bcryptjs": "^2.4.3",
 ##    "body-parser": "^1.19.1",

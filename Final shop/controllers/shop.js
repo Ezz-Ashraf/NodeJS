@@ -35,8 +35,9 @@ exports.homePage = (req, res, next) => {
     path: '/',
     formsCSS: true,
     productCSS: true,
-    activeAddProduct: true,
-    isAuthenticated:req.session.loggedIn
+    activeAddProduct: true
+  //  isAuthenticated:req.session.loggedIn,
+  //  csrfToken : req.csrfToken()
   })});
 
 };

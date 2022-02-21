@@ -1,5 +1,7 @@
 const Product = require('../models/product');
-
+const fs = require('fs');
+const path = require('path');
+//                //<input type="text" name="ImgLink" id="imageUrl" value="<% if(editing) {%><%=product.imageURL%> <% }%> ">
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
    pageTitle: 'Add Product',
@@ -13,7 +15,14 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const product = new Product({name:req.body.Name,price:req.body.Price,description:req.body.SellerName , 	imageURL:req.body.ImgLink ,userId:req.user}); //req.user = req.user._id
+
+  if(!req.file) {
+		const error = new Error('No image provided');
+		error.statusCode = 422;
+		throw error;
+	}
+const imageURL= req.file.path.replace("\\","/");
+  const product = new Product({name:req.body.Name,price:req.body.Price,description:req.body.SellerName , 	imageURL:imageURL/*req.body.ImgLink*/ ,userId:req.user}); //req.user = req.user._id
   product.save().then(result => {
 	  console.log(result);
   res.redirect('/admin/add-product');
@@ -70,7 +79,33 @@ exports.getProducts = (req, res, next) => {
   };
 
 exports.postDeleteProducts = (req, res, next) => {
-const prodId = req.body.productID;
+/*const prodId = req.body.productID;
   Product.findByIdAndRemove(prodId).then().catch(err => console.log(err));
-  res.redirect('/products');
+  res.redirect('/products');*/
+const prodId = req.body.productID;
+
+	Product.findById(prodId)
+    .then(product => {
+      if (!product) {
+        const error = new Error('Could not find post.');
+        error.statusCode = 404;
+        throw error;
+      }
+			//check the logged in user
+			clearImage(product.imageURL);
+			return Product.findByIdAndRemove(prodId);
+		}).then(result => {
+			console.log(result);
+	  res.redirect('/products');
+		}).catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+const clearImage = filePath => {
+  filePath = path.join(__dirname, '..', filePath);
+  fs.unlink(filePath, err => console.log(err));
 };

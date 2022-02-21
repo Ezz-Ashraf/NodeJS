@@ -7,14 +7,15 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <form class="product-form" action="<% if(editing) {%>../../admin/edit-product <% } else {%>../admin/add-product<%}%>" method="POST">
+        <form class="product-form" action="<% if(editing) {%>../../admin/edit-product <% } else {%>../admin/add-product<%}%>" enctype="multipart/form-data" method="POST" >
             <div class="form-control">
                 <label for="Name">Title</label>
                 <input type="text" name="Name" id="title"  value="<% if(editing) {%><%=product.name%> <% }%> ">
             </div>
             <div class="form-control">
                 <label for="imageUrl">Image URL</label>
-                <input type="text" name="ImgLink" id="imageUrl" value="<% if(editing) {%><%=product.imageURL%> <% }%> ">
+                <input  type="file" name="ImgLink" required="required" placeholder="Upload image of item"  value="<% if(editing) {%><%=product.imageURL%> <% }%> >
+
             </div>
             <div class="form-control">
                 <label for="price">Price</label>
@@ -27,6 +28,7 @@
 			<%if(editing) { %>
     <input name="productID" type="hidden" value="<%=product._id %>">
 	<% }%>
+			<input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit"  ><% if(editing) {%><%-'update'%> <% } else {%><%-'add'%><%}%></button>
         </form>
     </main>

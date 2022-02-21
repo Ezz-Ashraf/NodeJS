@@ -19,6 +19,7 @@
 		 	 <div class="centered">
 		 <div>-------------------------------------</div>
 		  <form action="/shop/create-order" method="POST" >
+		  			 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 		  		     <button class="btn" type="submit">Order Now!</button>
 					 </form>
 		<% } else  {%>

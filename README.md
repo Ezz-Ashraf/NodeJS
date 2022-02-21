@@ -7,8 +7,8 @@
 ### -Run both projects using npm start
 ### -Type npm install in command prompt if it doesn't run(both)
 ### -Signup first to create a user in the database
-### -If you are not using windows OS code will need mofification in order to save and load images (remove the replace statements from app.js and feed controller)
-### -The frontend project is just a ReactJS template I use (it wasn't coded by me) but I adjusted some URLs and JSON objects
+### -If you are not using windows OS code will need modification in order to save and load images (remove the replace statements from app.js and feed controller)
+### -The frontend project is just a ReactJS template I use (it wasn't coded by me) but I adjusted some URLs and JSON objects in fetch functions
 ### -I used Nodemon package for live reloading so npm start typically matches nodemon app.js in the RESTapi project
 ### -I used mongoose package in order to store requests in mongoDB(Kindly attach your mongoDB database link instead of mine at line 7 in Restapi/app.js) 
 ### -I used cors package to avoid cors errors for(PUT,DELETE) requests

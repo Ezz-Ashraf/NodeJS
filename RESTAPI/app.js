@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
-const { v4:uuidv4 } = require('uuid')
+const { v4:uuidv4 } = require('uuid');
 const bodyParser =require('body-parser');
 const mongoose=require('mongoose');
 const mongoDBURI = 'mongodb+srv://Ezz:1234@cluster0.ghrh0.mongodb.net/socialNetwork?retryWrites=true&w=majority';
 const feedRoutes = require('./router/feed');
+const authRoutes = require('./router/auth');
+const isAuth = require('./middleware/is-auth');
 const app = express();
 const cors = require('cors');
 const fileStorage = multer.diskStorage({
@@ -43,6 +45,7 @@ app.use(multer({ storage:fileStorage , fileFilter: fileFilter }).single('image')
 app.use('/images',express.static(path.join(__dirname,'images')));
 app.use(cors());
 app.use('/feed',feedRoutes);
+app.use('/auth',authRoutes);
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -57,7 +60,8 @@ app.use((error,req ,res ,next) => {
 	console.log(error);
 	const status = error.statusCode || 500; //if status code is undefined it will be assigned as 500
 	const message = error.message;
-	res.status(status).json({message:message});
+	const data = error.data;
+	res.status(status).json({message:message , data:data});
 });
 mongoose.connect(mongoDBURI).then(result => {
 	app.listen(8080);

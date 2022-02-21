@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator/check');
 const Post = require('../models/post');
+const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
 exports.getPosts = (req,res,next) => {
@@ -53,19 +54,27 @@ exports.createPost = (req,res,next) => {
 	const imageURL= req.file.path.replace("\\","/");
 	const title = req.body.title;
 	const content = req.body.content;
+	let creator;
 	const post = new Post({
 		title:title,
 			content:content,
-			creator:{ name:'ezz ashraf'
-		},
+			creator:req.userId,
 		imageURL:imageURL
-	});
-	post.save().then(result => {	//creating a post in database
+	}); 		//creating a post in database
+	post.save().then(result => {
+		return User.findById(req.userId);
+		}).then( user => {
+		creator = user;
+		user.posts.push(post);
+		return user.save();
+	}).then( result => {
 		res.status(201).json({
 			message : 'post created successfully! :D"',
 			// post : {_id : new Date().toISOString(),
 			// 	createdAt :new Date()
 			// }
+			post :post,
+			creator :{_id:creator._id , name: creator.name}
 		});}).catch((err) => {
 			//console.log(err)
 			if(!err.statusCode) {
@@ -124,6 +133,12 @@ exports.editPost = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
+			if(post.creator.toString() !== req.userId)
+			{
+				const error = new Error('Edit not allowed');
+				error.statusCode = 403;
+				throw error;
+			}
       if (imageUrl !== post.imageURL) {
         clearImage(post.imageURL);
       }
@@ -154,11 +169,21 @@ exports.deletePost = (req, res, next) => {
         throw error;
       }
 			//check the logged in user
+			if(post.creator.toString() !== req.userId)
+			{
+				const error = new Error('Delete not allowed');
+				error.statusCode = 403;
+				throw error;
+			}
 			clearImage(post.imageURL);
 			return Post.findByIdAndRemove(postId);
 		}).then(result => {
-			console.log(result);
-			res.status(200).json({ message: 'Deleted post!'});
+		return User.findById(req.userId);
+		}).then(user => {
+			user.posts.pull(postId);
+			return user.save();
+		}).then(result => {
+						res.status(200).json({ message: 'Deleted post!'});
 		}).catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
@@ -169,4 +194,46 @@ exports.deletePost = (req, res, next) => {
 const clearImage = filePath => {
   filePath = path.join(__dirname, '..', filePath);
   fs.unlink(filePath, err => console.log(err));
+};
+
+exports.getUserStatus = (req, res, next) => {
+ User.findById(req.userId).then( user => {
+	 if(!user) {
+		 error = new Error('User not found');
+		 error.statusCode = 404;
+		 throw error;
+	 }
+	 res.status(200).json({
+		 status:user.status
+	 });
+ }).catch(err => {
+	 if (!err.statusCode) {
+		 err.statusCode = 500;
+	 }
+	 next(err);
+ });
+
+};
+
+exports.updateUserStatus = (req, res, next) => {
+	const newStatus= req.body.status;
+	User.findById(req.userId).then(user => {
+		if(!user) {
+			error = new Error('User not found');
+			error.statusCode = 404;
+			throw error;
+		}
+		user.status =newStatus;
+	return	user.save();
+	}).then(result => {
+		res.status(200).json({
+			message:'user created succesfully',
+			status:newStatus
+		});
+	}).catch(err => {
+		if (!err.statusCode) {
+			err.statusCode = 500;
+	}
+	next(err);
+});
 };

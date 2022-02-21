@@ -6,7 +6,6 @@
 #### 2-social network (which is frontend)
 ### -Run both projects using npm start
 ### -Type npm install in command prompt if it doesn't run(both)
-### -Adjust database link in app.js file line 7 (MongoDB)
 ### -Signup first to create a user in the database
 ### -If you are not using windows OS code will need mofification in order to save and load images (remove the replace statements from app.js and feed controller)
 ### -The frontend project is just a ReactJS template I use (it wasn't coded by me) but I adjusted some URLs and JSON objects

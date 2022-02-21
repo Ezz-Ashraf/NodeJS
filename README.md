@@ -16,12 +16,15 @@ this is my final website project using mongoose package and ejs for rendring aft
 ## The SQL commands file is for mysql so ignore it
 
 # Used packages:
-##    "bcryptjs": "^2.4.3",
-##    "body-parser": "^1.19.1",
-##    "connect-mongodb-session": "^3.1.1",
-##    "ejs": "^3.1.6",
-##    "express": "^4.17.2",
-##    "express-session": "^1.17.2",
-##    "mongodb": "^4.3.0",
-##    "mongoose": "^6.1.6",
-##    "nodemon": "^2.0.15"
+###    "bcryptjs": "^2.4.3",
+###    "body-parser": "^1.19.1",
+###    "connect-mongodb-session": "^3.1.1",
+###    "csurf": "^1.11.0",
+###    "ejs": "^3.1.6",
+###    "express": "^4.17.2",
+###    "express-session": "^1.17.2",
+###    "mongodb": "^4.3.0",
+###    "mongoose": "^6.1.6",
+###    "multer": "^1.4.4",
+###    "nodemon": "^2.0.15",
+###    "uuid": "^8.3.2

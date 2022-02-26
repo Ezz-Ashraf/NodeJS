@@ -10,6 +10,7 @@ const multer = require('multer');
 const User = require('./models/user');
 const { v4:uuidv4 } = require('uuid');
 const csrf =require('csurf');
+const flash = require('connect-flash');
 const mongoDBURI = 'mongodb+srv://Ezz:1234@cluster0.ghrh0.mongodb.net/shop?retryWrites=true&w=majority';
 const app=express();
 const store = new MongoDBStore({
@@ -48,6 +49,7 @@ app.use(bodyParse.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret:'This is a secret',resave:false, saveUninitialized: false, store:store}));
 app.use(csrfProtection);
+app.use(flash());
 app.use((req , res ,next) => {
 	if (!req.session.user) {
 		return next();

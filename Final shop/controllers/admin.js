@@ -49,23 +49,31 @@ exports.getEditProducts = (req, res, next) => {
 };
 exports.postEditProduct= (req, res, next) => {
 	const prodId = req.body.productID;
+  let updatedImg = req.body.productImage;
 	const updatedName = req.body.Name;
 	const updatedPrice = req.body.Price;
-	const updatedImg = req.body.ImgLink;
+	//const updatedImg =req.file.path.replace("\\","/");// req.body.ImgLink;
 	const updatedDescription = req.body.SellerName;
+
+ if (req.file) {
+   updatedImg = 	req.file.path.replace("\\","/");
+ }
   Product.findById(prodId).then(product =>{
+    if(product.userId.toString() !== req.user._id.toString())
+    {
+      return res.redirect('/');
+    }
 	 product.name=updatedName;
    product.price=updatedPrice;
    product.description=updatedDescription;
    product.imageURL=updatedImg;
-	return product.save();
-  }).then( result =>{
+	  product.save().then( result =>{
 		console.log(result);
 	res.redirect('products');
-});
+}) }).catch(err => {console.log(err)});
 };
 exports.getProducts = (req, res, next) => {
- Product.find().then( products => { //We can use populate or select
+ Product.find(/*{userId : req.user}*/).then( products => { //We can use populate or select
     res.render('admin/products', {
       prods: products,
       pageTitle:'Go shopping',
@@ -75,6 +83,8 @@ exports.getProducts = (req, res, next) => {
       productCSS: true,
       isAuthenticated:req.session.loggedIn
     });
+  }).catch(err => {
+    console.log(err);
   });
   };
 
@@ -92,8 +102,10 @@ const prodId = req.body.productID;
         throw error;
       }
 			//check the logged in user
-			clearImage(product.imageURL);
-			return Product.findByIdAndRemove(prodId);
+      if(product._id === req.user._id) {
+      			clearImage(product.imageURL);
+      }
+			return Product.deleteOne({_id : prodId , userId : req.user._id});//findByIdAndRemove(prodId);
 		}).then(result => {
 			console.log(result);
 	  res.redirect('/products');

@@ -2,11 +2,20 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 exports.getLoginPage = (req, res, next) => {
 //const loggedIn =req.get('Cookie').split(';')[2].trim().split('=')[1];
-  console.log(req.session);
+    let message =req.flash('error');
+    if(message.length > 0)
+    {
+      message = message[0];
+    }
+    else
+    {
+      message = null;
+    }
     res.render('auth/login', {
       pageTitle:'Login Page',
       path: '/login',
-      isAuthenticated:req.session.loggedIn
+    //  isAuthenticated:req.session.loggedIn,
+      errorMessage: message
     });
   };
   exports.postLoginPage = (req, res, next) => {
@@ -16,6 +25,7 @@ exports.getLoginPage = (req, res, next) => {
     .then(user =>{
       if(!user)
       {
+        req.flash('error' , 'Invalid Email or password');
         return res.redirect('/login');
       }
       bcrypt.compare(password,user.Upassword).then(doMatch =>{
@@ -28,6 +38,7 @@ exports.getLoginPage = (req, res, next) => {
         });
       }
         else {
+        req.flash('error' , 'Wrong password');
           res.redirect('/login');
         }
         });
@@ -42,10 +53,20 @@ exports.getLoginPage = (req, res, next) => {
     });
   };
   exports.getSignup = (req, res, next) => {
+    let message =req.flash('error');
+    if(message.length > 0)
+    {
+      message = message[0];
+    }
+    else
+    {
+      message = null;
+    }
     res.render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
-      isAuthenticated: false
+    //  isAuthenticated: false,
+      errorMessage: message
     });
   };
 
@@ -55,8 +76,14 @@ exports.getLoginPage = (req, res, next) => {
     password = req.body.password;
     confirmPassword = req.body.confirmPassword;
     User.findOne({email: email}).then(userDoc => { //check if the email is repeated
-      if(userDoc || password != confirmPassword)
+      if(userDoc)
       {
+      req.flash('error' , 'Email already used');
+        return res.redirect('/signup');
+    }
+    if(password != confirmPassword)
+    {
+      req.flash('error' , 'Two passwords are not equal');
         return res.redirect('/signup');
     }
 

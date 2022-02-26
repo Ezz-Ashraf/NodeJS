@@ -14,7 +14,7 @@
             </div>
             <div class="form-control">
                 <label for="imageUrl">Image URL</label>
-                <input  type="file" name="ImgLink" required="required" placeholder="Upload image of item"  value="<% if(editing) {%><%=product.imageURL%> <% }%> >
+                <input  type="file" name="ImgLink" <% if(!editing) {%>required="required" <%}%>   value="<% if(editing) {%><%=product.imageURL%> <% }%> ">
 
             </div>
             <div class="form-control">
@@ -27,6 +27,7 @@
             </div>
 			<%if(editing) { %>
     <input name="productID" type="hidden" value="<%=product._id %>">
+    <input name="productImage" type="hidden" value="<%=product.imageURL %>">
 	<% }%>
 			<input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit"  ><% if(editing) {%><%-'update'%> <% } else {%><%-'add'%><%}%></button>

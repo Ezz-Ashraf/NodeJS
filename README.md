@@ -11,7 +11,10 @@ this is my final website project using mongoose package and ejs for rendring aft
 ### 1 -add and remove products
 ### 2-add and remove objects to and from cart
 ### 3-preview previous orders
-### 4-It was planned to add to the checkout page payment methods using stripe but I preferred to separate it to another project
+### 4-Only the user who added a product can delete or edit it (Advanced Authentication)
+### 5-CSRF Token protection added 
+### 6-Protected Routes
+### 7-It was planned to add to the checkout page payment methods using stripe but I preferred to separate it to another project
 
 ## The SQL commands file is for mysql so ignore it
 

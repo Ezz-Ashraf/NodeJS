@@ -4,7 +4,7 @@ const multer = require('multer');
 const { v4:uuidv4 } = require('uuid');
 const bodyParser =require('body-parser');
 const mongoose=require('mongoose');
-const mongoDBURI = 'mongodb+srv://Ezz:1234@cluster0.ghrh0.mongodb.net/socialNetwork?retryWrites=true&w=majority';
+const mongoDBURI = '';
 const feedRoutes = require('./router/feed');
 const authRoutes = require('./router/auth');
 const isAuth = require('./middleware/is-auth');

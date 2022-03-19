@@ -11,7 +11,7 @@ const User = require('./models/user');
 const { v4:uuidv4 } = require('uuid');
 const csrf =require('csurf');
 const flash = require('connect-flash');
-const mongoDBURI = 'mongodb+srv://Ezz:1234@cluster0.ghrh0.mongodb.net/shop?retryWrites=true&w=majority';
+const mongoDBURI = '';
 const app=express();
 const store = new MongoDBStore({
 uri : mongoDBURI,
